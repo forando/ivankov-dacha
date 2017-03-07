@@ -1,9 +1,5 @@
 package io.swagger.api;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyRange;
 import io.swagger.model.PumpController;
 
 import javax.ws.rs.core.Response;
