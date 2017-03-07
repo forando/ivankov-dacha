@@ -1,0 +1,495 @@
+swagger: '2.0'
+info:
+  title: Dacha API
+  description: Ivankov dachas API
+  version: "1.0.0"
+# the domain of the service
+#host: 'localhost:8080'
+host: 'ivankov-1308.appspot.com'
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /v2
+produces:
+  - application/json
+paths:
+  /outdoor:
+    get:
+      summary: Outdoor Params List
+      description: Provides a list of outdoor climate parameters.
+      parameters:
+        - name: start_date
+          in: query
+          description: A date in miliseconds to fetch data from.
+          required: true
+          type: integer
+          format: int64
+        - name: end_date
+          in: query
+          description: A date in miliseconds to fetch data to.
+          required: true
+          type: integer
+          format: int64
+      tags:
+        - ShowOutdoorParams
+      responses:
+        200:
+          description: An array of outdoor params temp, humidity, preassure, wind speed, light, rain.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Outdoor'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: New Outdoor Object
+      description: Creates a new Outdoor object in the store.  Duplicates are allowed
+      operationId: addOutdoor
+      parameters:
+        - name: outdoor
+          in: body
+          description: Outdoor object to add to the store.
+          required: true
+          schema:
+            $ref: '#/definitions/Outdoor'
+      tags:
+        - StoreOutdoorParams
+      responses:
+        200:
+          description: Server response
+          schema:
+            $ref: '#/definitions/Outdoor'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /indoor:
+    get:
+      summary: Indoor Params List
+      description: Provides a list of indoor climate parameters.
+      parameters:
+        - name: start_date
+          in: query
+          description: A date in miliseconds to fetch data from.
+          required: true
+          type: integer
+          format: int64
+        - name: end_date
+          in: query
+          description: A date in miliseconds to fetch data to.
+          required: true
+          type: integer
+          format: int64
+      tags:
+        - ShowIndoorParams
+      responses:
+        200:
+          description: An array of indoor params (temperature).
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Indoor'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: New Indoor Object
+      description: Creates a new Indoor object in the store.  Duplicates are allowed
+      operationId: addIndoor
+      parameters:
+        - name: indoor
+          in: body
+          description: Indoor object to add to the store.
+          required: true
+          schema:
+            $ref: '#/definitions/Indoor'
+      tags:
+        - StoreIndoorParams
+      responses:
+        200:
+          description: Server response
+          schema:
+            $ref: '#/definitions/Indoor'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /basement:
+    get:
+      summary: Basement Params List
+      description: Provides a list of basement climate parameters.
+      parameters:
+        - name: start_date
+          in: query
+          description: A date in miliseconds to fetch data from.
+          required: true
+          type: integer
+          format: int64
+        - name: end_date
+          in: query
+          description: A date in miliseconds to fetch data to.
+          required: true
+          type: integer
+          format: int64
+      tags:
+        - ShowBasementParams
+      responses:
+        200:
+          description: An array of basement params temp, humidity.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Basement'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: New Basement Object
+      description: Creates a new Basement object in the store.  Duplicates are allowed
+      operationId: addBasement
+      parameters:
+        - name: basement
+          in: body
+          description: Basement object to add to the store.
+          required: true
+          schema:
+            $ref: '#/definitions/Basement'
+      tags:
+        - StoreBasementParams
+      responses:
+        200:
+          description: Server response
+          schema:
+            $ref: '#/definitions/Basement'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /boiler:
+    get:
+      summary: Boiler State
+      description: Indicates wehter boiler is on or off and provides remote controll.
+      parameters:
+        - name: start_date
+          in: query
+          description: A date in miliseconds to fetch data from.
+          required: true
+          type: integer
+          format: int64
+        - name: end_date
+          in: query
+          description: A date in miliseconds to fetch data to.
+          required: true
+          type: integer
+          format: int64
+      tags:
+        - ShowBoilerState
+      responses:
+        200:
+          description: An array of boiler states.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Boiler'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: New Boiler Object
+      description: Creates a new Boiler object in the store.  Duplicates are allowed
+      operationId: addBoiler
+      parameters:
+        - name: boiler
+          in: body
+          description: Boiler object to add to the store.
+          required: true
+          schema:
+            $ref: '#/definitions/Boiler'
+      tags:
+        - StoreBoilerState
+      responses:
+        200:
+          description: A stored boiler object.
+          schema:
+            $ref: '#/definitions/Boiler'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /pump:
+    get:
+      summary: Pump State
+      description: Indicates wehter pump is on or off and provides remote controll.
+      parameters:
+        - name: start_date
+          in: query
+          description: A date in miliseconds to fetch data from.
+          required: true
+          type: integer
+          format: int64
+        - name: end_date
+          in: query
+          description: A date in miliseconds to fetch data to.
+          required: true
+          type: integer
+          format: int64
+      tags:
+        - ShowPumpState
+      responses:
+        200:
+          description: An array of pump states.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Pump'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      summary: New Pump Object
+      description: Creates a new Pump object in the store.  Duplicates are allowed
+      operationId: addPump
+      parameters:
+        - name: pump
+          in: body
+          description: Pump object to add to the store.
+          required: true
+          schema:
+            $ref: '#/definitions/Pump'
+      tags:
+        - StorePumpState
+      responses:
+        200:
+          description: A stored pump object.
+          schema:
+            $ref: '#/definitions/Pump'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /boilercontroller:
+    post:
+      summary: Set Boiler Controller
+      description: Sets boiler state (ON or OFF)
+      operationId: startBoiler
+      parameters:
+        - name: boiler_controller
+          in: body
+          description: "BoilerController object to Start/Stop the boiler."
+          required: true
+          schema:
+            $ref: '#/definitions/BoilerController'
+      tags:
+        - SetBoilerControllerState
+      responses:
+        200:
+          description: A newly reset boiler controller object.
+          schema:
+            $ref: '#/definitions/BoilerController'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    get:
+      summary: Show Boiler Controller State
+      description: Indicates wehter startBoiler command is set to TRUE or FALSE.
+      tags:
+        - ShowBoilerControllerState
+      responses:
+        200:
+          description: An actual boiler controller object.
+          schema:
+              $ref: '#/definitions/BoilerController'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /pumpcontroller:
+    post:
+      summary: Pump Controller State
+      description: Sets pump state (ON or OFF)
+      operationId: startPump
+      parameters:
+        - name: pump_controller
+          in: body
+          description: "PumpController object to Start/Stop the pump."
+          required: true
+          schema:
+            $ref: '#/definitions/PumpController'
+      tags:
+        - SetPumpControllerState
+      responses:
+        200:
+          description: A newly reset pump controller object.
+          schema:
+            $ref: '#/definitions/PumpController'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    get:
+      summary: Show Pump Controller State
+      description: Indicates wehter startPump command is set to TRUE or FALSE.
+      tags:
+        - ShowPumpControllerState
+      responses:
+        200:
+          description: An actual pump controller object.
+          schema:
+              $ref: '#/definitions/PumpController'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Outdoor:
+    type: object
+    required:
+    - time_stamp
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Unique identifier.
+      time_stamp:
+        type: integer
+        format: int64
+        description: Date in miliseconds the data was fetched on.
+      temp_south:
+        type: number
+        format: float
+        description: Temperature (in celcius) on the south side of the house.
+      temp_north:
+        type: number
+        format: float
+        description: Temperature (in celcius) on the south side of the house.
+      preassure:
+        type: integer
+        format: int32
+        description: Atmospheric preassure in mm of water column.
+      humidity:
+        type: integer
+        format: int32
+        description: "Outdoor humidity (from 0 to 100%)."
+      wind_speed:
+        type: integer
+        format: int32
+        description: The speed of a wind m/s.
+      light:
+        type: integer
+        format: int32
+        description: Outdoor illumination in lumins.
+      rain:
+        type: boolean
+        description: Indicates wehter it's raining or not.
+  Indoor:
+    type: object
+    required:
+    - time_stamp
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Unique identifier.
+      time_stamp:
+        type: integer
+        format: int64
+        description: Date in miliseconds the data was fetched on.
+      temp_livingroom:
+        type: number
+        format: float
+        description: Temperature (in celcius) in the living room of the house.
+      temp_kitchen:
+        type: number
+        format: float
+        description: Temperature (in celcius) in the kitchen room of the house.
+  Basement:
+    type: object
+    required:
+    - time_stamp
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Unique identifier.
+      time_stamp:
+        type: integer
+        format: int64
+        description: Date in miliseconds the data was fetched on.
+      temp:
+        type: number
+        format: float
+        description: Temperature (in celcius) in the basement.
+      humidity:
+        type: integer
+        format: int32
+        description: "Humidity (0 to 100%) in the basement."
+  Boiler:
+    type: object
+    required:
+    - time_stamp
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Unique identifier.
+      time_stamp:
+        type: integer
+        format: int64
+        description: Date in miliseconds the data was fetched on.
+      is_on:
+        type: boolean
+        description: "True if the boiler in ON and false - if it's OFF."
+  Pump:
+    type: object
+    required:
+    - time_stamp
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Unique identifier.
+      time_stamp:
+        type: integer
+        format: int64
+        description: Date in miliseconds the data was fetched on.
+      is_on:
+        type: boolean
+        description: "True if the pump in ON and false - if it's OFF."
+  BoilerController:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Unique identifier.
+      set_on:
+        type: boolean
+        description: "True if the boiler state must be ON and false - if OFF."
+  PumpController:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Unique identifier.
+      set_on:
+        type: boolean
+        description: "True if the pump state must be ON and false - if OFF."
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

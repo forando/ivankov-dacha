@@ -1,0 +1,55 @@
+group 'com.versiya'
+version '1.0'
+
+apply plugin: 'war'
+apply plugin: 'appengine'
+
+def appId = "ivankov-1308"
+def appEmail = "forando@gmail.com"
+def appengineVersion = "1.9.34"
+def swaggerCoreVersion = "1.5.8"
+def jerseyVersion = "1.18.1"
+def slf4jVersion = "1.6.3"
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.google.appengine:gradle-appengine-plugin:1.9.34'
+    }
+}
+
+sourceCompatibility = 1.7
+
+dependencies {
+    appengineSdk "com.google.appengine:appengine-java-sdk:${appengineVersion}"
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile "com.google.appengine:appengine-api-stubs:${appengineVersion}"
+    providedCompile  "javax.servlet:servlet-api:2.5"
+    compile "com.google.appengine:appengine-api-1.0-sdk:${appengineVersion}"
+    compile "com.google.appengine:appengine-endpoints:${appengineVersion}"
+
+    compile "io.swagger:swagger-jersey-jaxrs:${swaggerCoreVersion}"
+    compile "org.slf4j:slf4j-log4j12:${slf4jVersion}"
+    compile "com.sun.jersey:jersey-core:${jerseyVersion}"
+    compile "com.sun.jersey:jersey-json:${jerseyVersion}"
+    compile "com.sun.jersey:jersey-servlet:${jerseyVersion}"
+    compile "com.sun.jersey:jersey-server:${jerseyVersion}"
+    compile "com.sun.jersey.contribs:jersey-multipart:${jerseyVersion}"
+    compile "com.sun.jersey.contribs:jersey-multipart:${jerseyVersion}"
+    compile "com.googlecode.objectify:objectify:5.0"
+}
+
+appengine {
+    downloadSdk = true
+
+    appcfg {
+        email = "${appEmail}"
+        noCookies = true
+        oauth2 = true
+    }
+}
+
+

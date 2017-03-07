@@ -1,0 +1,10 @@
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+
+    ext{
+        //relative path from frontEnd app to backEnd webapp folder
+        frontendToBackendProductionPath = '../backend/src/main/webapp'
+    }
+}

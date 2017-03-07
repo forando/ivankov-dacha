@@ -1,0 +1,3 @@
+rootProject.name = 'ivankov-dacha'
+include ':backend', ':frontend'
+
